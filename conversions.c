@@ -62,53 +62,53 @@ long toBin(char* num, int b){
     }
     return bn;
 }
-/*
-void toHex(char* num, int b){
-    long convertedToDec;
-    printf("In toHex\n");
-    convertedToDec=toDec(num, b);
-    long res=convertedToDec;
-    int rem,i=0,dn;
-    char* hexNum;
-    while (res>0){   
-        printf("in while\n"); 
-        rem=res%16;
-        res=(res/16);
-        dn+=rem*pow(10,i);
-        printf(">>> res=%ld\n   rem=%d\n   dn=%d\n",res,rem,dn);
-        ++i;
+void reverse(char* num){
+    char temp;
+    int len=strlen(num);
+    for (int i=0; i<len/2; ++i){
+        temp=num[i];
+        num[i]=num[len-i-1];
+        num[len-i-1]=temp;
     }
-    hexNum = (char*) malloc(i * sizeof(char));
-    for (int i=0; i<strlen(hexNum); ++i){
+}
+int getLen(long num){
+    int len=0, val=1;
+    while (val<num){
+        val*=10;
+        ++len;
+    }
+    return len;
+
+}
+char* toHex(char* num, int b, char* hn){
+    long res=toDec(num, b);
+    int rem,len=getLen(res);
+    void *realloc(void *hn, size_t len);
+    int i;
+    for (i=0; i<len; ++i){   
+            rem=res%16;
+        res=(res/16);
+        hn[i]=numToAlpha(rem);
+    }
+    reverse(hn);
+    hn[len]='\0';
+    return hn;
+}
+long toOct(char* num, int b){ 
+    long dn=toDec(num,b), res=dn, bn=0;
+    int rem,i=0,lastChk=0;
+    while ((res>0)){
+        rem=res%8;
+        res=res/8;
+        bn+=rem*pow(10,i);
+        ++i;
         
     }
+    return bn;
 }
-*/
-/*
-void convertor(int base){
-    if (base==2){
-        long n;
-        //scanf("%ld",&n);
-        n=111000;
-        printf("\n%ld (Binary) ---> %ld (Decimal)\n",n,binOctToDec(n,2));
-    }
-    else if (base==8){
-        long n;
-        //scanf("%ld",&n);
-        n=78;
-        printf("\n%ld (Octal) ---> %ld (Decimal)\n",n,binOctToDec(n,8));
-    }
-    else if (base==16){
-        char n[100]="FFF222";
-        //scanf("%s",n);
-        printf("\n%s (Hex) ---> %ld (Decimal)\n",n,hexToDec(n));
-    }
+void prettyPrint_ops(char* num1, char* type1, char* num2, char* type2){
+    printf("%s (%s) --> %s (%s)\n",num1, type1, num2, type2);
 }
-*/
-int main(){
-    //toBin("FFF",16);
-    printf("7 to binary %ld\n",toBin("7",10));
-    printf("FFF to binary %ld\n",toBin("FFF",16));
-    printf("10 to binary %ld\n",toBin("10",8));
-    
+void prettyPrint_opi(char* num1, char* type1, int num2, char* type2){
+    printf("%s (%s) --> %d (%s)\n",num1, type1, num2, type2);
 }

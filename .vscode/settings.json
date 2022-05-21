@@ -2,6 +2,7 @@
     "files.associations": {
         "random": "c",
         "ratio": "c",
-        "ios": "c"
+        "ios": "c",
+        "stdlib.h": "c"
     }
 }
