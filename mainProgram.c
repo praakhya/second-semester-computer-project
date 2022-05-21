@@ -7,7 +7,6 @@ int main(){
     char* hn=toHex(n,b);
     prettyPrint_ops(n,"decimal",hn,"hexadecimal");
     free(hn);
-    printf("%s",hn);
     return 0;
 
 }
