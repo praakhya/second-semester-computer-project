@@ -25,13 +25,10 @@ char numToAlpha(int a){
     return res;
 }
 long convertToNum(char* num){
-    printf("in convertToNum\n");
     long n=0;
-    printf("---- %s\n",num);
     int len=strlen(num);
     for (int i=0; i<len; ++i){
         n+=(num[i]-'0')*pow(10,len-i-1);
-        printf(">>%ld\n",n);
     }
     return n;
 }
@@ -50,8 +47,20 @@ long toDec(char* num, int b){
             break;
         }  
     }
-    printf("%s  -->  %ld\n",num,dn);
     return dn;
+}
+
+long toBin(char* num, int b){ 
+    long dn=toDec(num,b), res=dn, bn=0;
+    int rem,i=0,lastChk=0;
+    while ((res>0)){
+        rem=res%2;
+        res=res/2;
+        bn+=rem*pow(10,i);
+        ++i;
+        
+    }
+    return bn;
 }
 /*
 void toHex(char* num, int b){
@@ -98,61 +107,8 @@ void convertor(int base){
 */
 int main(){
     //toBin("FFF",16);
-    //convertor(2);
-    //convertor(8);
-    //convertor(16);
-    printf("Binary to Decimal\n");
-    toDec("0",2);
-    toDec("1",2);
-    toDec("10",2);
-    toDec("11",2);
-    toDec("100",2);
-    toDec("101",2);
-    toDec("110",2);
-    toDec("111",2);
-    toDec("1000",2);
-    toDec("1001",2);
-    toDec("1010",2);
-    toDec("1011",2);
-    toDec("1100",2);
-    toDec("1101",2);
-    toDec("1110",2);
-    toDec("1111",2);
-    printf("--------------\nHexadecimal to Decimal\n");
-    toDec("0",16);
-    toDec("1",16);
-    toDec("2",16);
-    toDec("3",16);
-    toDec("4",16);
-    toDec("5",16);
-    toDec("6",16);
-    toDec("7",16);
-    toDec("8",16);
-    toDec("9",16);
-    toDec("A",16);
-    toDec("B",16);
-    toDec("C",16);
-    toDec("D",16);
-    toDec("E",16);
-    toDec("F",16);
-    toDec("10",16);
-    printf("--------------\nOctal to Decimal\n");
-    toDec("0",8);
-    toDec("1",8);
-    toDec("2",8);
-    toDec("3",8);
-    toDec("4",8);
-    toDec("5",8);
-    toDec("6",8);
-    toDec("7",8);
-    toDec("10",8);
-    toDec("11",8);
-    toDec("12",8);
-    toDec("13",8);
-    toDec("14",8);
-    toDec("15",8);
-    toDec("16",8);
-    toDec("17",8);
-    toDec("18",8);
-    return 0;
+    printf("7 to binary %ld\n",toBin("7",10));
+    printf("FFF to binary %ld\n",toBin("FFF",16));
+    printf("10 to binary %ld\n",toBin("10",8));
+    
 }
