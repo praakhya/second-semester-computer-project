@@ -80,10 +80,10 @@ int getLen(long num){
     return len;
 
 }
-char* toHex(char* num, int b, char* hn){
+char* toHex(char* num, int b){
     long res=toDec(num, b);
     int rem,len=getLen(res);
-    void *realloc(void *hn, size_t len);
+    char * hn= (char*) calloc(len, sizeof(char));
     int i;
     for (i=0; i<len; ++i){   
             rem=res%16;

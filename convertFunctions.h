@@ -5,7 +5,7 @@ long toDec(char* num, int b);
 long toBin(char* num, int b);
 void reverse(char* num);
 int getLen(long num);
-char* toHex(char* num, int b, char* hn);
+char* toHex(char* num, int b);
 long toOct(char* num, int b);
 void prettyPrint_ops(char* num1, char* type1, char* num2, char* type2);
 void prettyPrint_opi(char* num1, char* type1, int num2, char* type2);
