@@ -112,3 +112,70 @@ void prettyPrint_ops(char* num1, char* type1, char* num2, char* type2){
 void prettyPrint_opi(char* num1, char* type1, int num2, char* type2){
     printf("%s (%s) --> %d (%s)\n",num1, type1, num2, type2);
 }
+typedef struct type{
+    char name[20];
+    int base;
+} typeStruct;
+void printOpt(typeStruct types[4]){
+    int len=4;
+    for (int i=0; i<len; ++i){
+        printf("%d. %s\n",i+1,types[i].name);
+    }
+}
+void printHead(){
+    system("clear");
+    printf("         __________________\n");
+    printf("--------|Converting Numbers|--------\n");
+    printf("         ------------------\n");
+}
+int valid(int opt){
+    if ((opt<1)||(opt>4)){
+        printf("Invalid option\n");
+        return 0;
+    }
+    return 1;
+}
+int inpInitType(int* opt, typeStruct* types){
+    printf("Select an option for initial type: ");
+    scanf("%d",opt);
+    if (valid(*opt)){
+        return types[*opt-1].base;
+    }
+    return inpInitType(opt, types);
+}
+int inpFinType(int* opt, typeStruct* types){
+    printf("\nSelect an option for final type: ");
+    scanf("%d",opt);
+    if (valid(*opt)){
+        return types[*opt-1].base;
+    }
+    return inpFinType(opt, types);
+}
+void convertMain(){
+    long (*dec_ptr)(char* num, int b) = &toDec;
+    long (*bin_ptr)(char* num, int b) = &toBin;
+    char* (*hex_ptr)(char* num, int b) = &toHex;
+    long (*oct_ptr)(char* num, int b) = &toOct;
+    typeStruct types[4]={{"Decimal",10},{"Binary",2},{"Hexadecimal",16},{"Octal",8}};
+    char ch;
+    int initOpt, finOpt, initType, finType;
+    char val[100];
+    printHead();
+    do{
+        printf("Available Types:-\n");
+        printOpt(types);   
+        initType = inpInitType(&initOpt, types);
+        printf("\nEnter value to be converted: ");
+        scanf("%s",val);
+        finType = inpFinType(&finOpt, types);
+        printf("\n");
+    }while(0);
+    char* n="456";
+    int b=10;
+    char* hn=toHex(n,b);
+    prettyPrint_ops(n,"decimal",hn,"hexadecimal");
+    long on=toOct(n,b);
+    prettyPrint_opi(n,"decimal",on,"octal");
+    long bn=toBin(n,b);
+    prettyPrint_opi(n,"decimal",bn,"binary");
+}

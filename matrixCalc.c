@@ -6,23 +6,7 @@ int f[10][10], s[10][10], r[10][10];
 int c1, c2, r1, r2;
 char opt;
 int sc;
-/*
-void read(int f[][10], int r0, int c0);
 
-void display(int f[][10], int r2, int c2);
-void add(int f[][10], int s[][10], int r[][10], int x, int y);
-void subtract(int f[][10], int s[][10], int r[][10], int x, int y);
-void scalarm(int f[][10], int r[][10], int scalar, int x, int y);
-void multi(int f[][10], int s[][10], int r[][10], int r1, int c2, int r2);
-void transpose(int f[][10], int x, int y);
-float det(int f[][10], int n);
-void cofac(int f[][10], int t[][10], int z, int i, int n);
-int dsum(int f[][10], int n);
-int adsum(int f[][10], int n);
-void rsum(int f[][10], int n, int m);
-void csum(int f[][10], int n, int m);
-void adjoint(int f[][10], int r[][10], int n, int m);
-*/
 void matMain()
 {   
     printf("________________________________________________________________________________\n");

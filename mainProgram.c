@@ -2,16 +2,7 @@
 #include <stdlib.h>
 #include "functionHeaders.h"
 #include <ctype.h>
-void convertMain(){
-    char* n="456";
-    int b=10;
-    char* hn=toHex(n,b);
-    prettyPrint_ops(n,"decimal",hn,"hexadecimal");
-    long on=toOct(n,b);
-    prettyPrint_opi(n,"decimal",on,"octal");
-    long bn=toBin(n,b);
-    prettyPrint_opi(n,"decimal",bn,"binary");
-}
+
 int main(){
     char ch;
     do{

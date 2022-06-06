@@ -43,3 +43,4 @@ void V_HSphere(char HS1);
 void V_Frustrum(char Frstm1);
 void quit();
 void areaVolMain();
+void convertMain();
