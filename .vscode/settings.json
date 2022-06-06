@@ -3,6 +3,8 @@
         "random": "c",
         "ratio": "c",
         "ios": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "algorithm": "c",
+        "locale": "c"
     }
 }
