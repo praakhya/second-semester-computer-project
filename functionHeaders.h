@@ -44,3 +44,18 @@ void V_Frustrum(char Frstm1);
 void quit();
 void areaVolMain();
 void convertMain();
+
+double radians(float a);
+long double fact(long n);
+double reduceAngle(double a);
+long double sine(float angle,char* radDeg);
+long double tangent(float angle,char* radDeg);
+long double cosecant(float angle,char* radDeg);
+long double secant(float angle,char* radDeg);
+long double cotangent(float angle,char* radDeg);
+void printTrigResult(long double val);
+char* angleUnits();
+void calculate(float angle,char* units);
+void trigMain();
+
+void sciMain();

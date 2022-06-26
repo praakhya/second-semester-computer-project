@@ -2,7 +2,9 @@ SRCS = \
 	mainProgram.c \
 	matrixCalc.c \
 	areaVolume.c \
-	conversions.c 
+	conversions.c \
+	scicalc.c \
+	trignometry.c
 
 HEADERS = \
 	functionHeaders.h 

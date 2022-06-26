@@ -1,11 +1,290 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include "functionHeaders.h"
+#include<ctype.h>
 int f[10][10], s[10][10], r[10][10];
 int c1, c2, r1, r2;
 char opt;
 int sc;
+
+void read(int f[][10], int r0, int c0);
+
+void display(int f[][10], int r2, int c2);
+void add(int f[][10], int s[][10], int r[][10], int x, int y);
+void subtract(int f[][10], int s[][10], int r[][10], int x, int y);
+void scalarm(int f[][10], int r[][10], int scalar, int x, int y);
+void multi(int f[][10], int s[][10], int r[][10], int r1, int c2, int r2);
+void transpose(int f[][10], int x, int y);
+float det(int f[][10], int n);
+void cofac(int f[][10], int t[][10], int z, int i, int n);
+int dsum(int f[][10], int n);
+int adsum(int f[][10], int n);
+void rsum(int f[][10], int n, int m);
+void csum(int f[][10], int n, int m);
+void adjoint(int f[][10], int r[][10], int n, int m);
+void matMain()
+{   
+    printf("________________________________________________________________________________\n");
+    printf("\n\n\t\t\t\tMatrix operations:\t\t\t\n\n");
+    do
+    {
+        printf("________________________________________________________________________________\n");
+
+        printf("A) Addition\n");
+        printf("B) Subtraction\n");
+        printf("C) Scalar multiplication \n");
+        printf("D) Matrix multiplication\n");
+        printf("E) Transpose\n");
+        printf("F) Determinant\n");
+        printf("G) Sum of diagonal elements \n");
+        printf("H) Trace of the matrix\n");
+        printf("I) Row and column sum \n");
+        printf("J)Adjoint and inverse\n");
+        printf("K)Exit\n");
+        printf("________________________________________________________________________________\n");
+        printf("Enter the operation to be performed:\t");
+        fflush(stdin);
+        scanf("%c", &opt);
+        
+        switch (opt)
+        {
+        case 'A':
+            printf("Enter the row size of the first matrix: ");
+           
+            scanf("%d", &r1);
+            printf("\nEnter the column size of the first matrix: ");
+            
+            scanf("%d", &c1);
+            printf("\nEnter the elements of the first matrix:\n");
+            
+            read(f, r1, c1);
+            printf("\nThe elements of the first matrix are :\n");
+            
+            display(f, r1, c1);
+            printf("\nEnter the row size of the second matrix: ");
+            
+            scanf("%d", &r2);
+            printf("\nEnter the column size of the second matrix: ");
+            
+            scanf("%d", &c2);
+            printf("\nEnter the elements of the second matrix:\n");
+            
+            read(s, r2, c2);
+            printf("\nThe elements of the second matrix are :\n");
+           
+            display(s, r2, c2);
+            
+            if ((c1 != c2) || (r1 != r2))
+            {
+                printf("Addition is not possible\n");
+            }
+            else
+            {
+                add(f, s, r, r1, c1);
+                printf("\nThe sum of the two matrices:\n");
+                display(r, r1, c1);
+            }
+            break;
+        case 'B':
+            printf("Enter the row size of the first matrix: ");
+            
+            scanf("%d", &r1);
+            printf("\nEnter the column size of the first matrix: ");
+            
+            scanf("%d", &c1);
+            printf("\nEnter the elements of the first matrix:\n");
+            read(f, r1, c1);
+            printf("\nThe elements of the first matrix are :\n");
+            display(f, r1, c1);
+            printf("\nEnter the row size of the second matrix: ");
+            scanf("%d", &r2);
+            printf("\nEnter the column size of the second matrix: ");
+            scanf("%d", &c2);
+            printf("\nEnter the elements of the second matrix:\n");
+            read(s, r2, c2);
+            printf("\nThe elements of the second matrix are :\n");
+            display(s, r2, c2);
+            if ((c1 != c2) || (r1 != r2))
+            {
+                printf("Subtraction is not possible\n");
+            }
+            else
+            {
+                subtract(f, s, r, r1, c1);
+                printf("\nThe difference of the two matrices:\n");
+                display(r, r1, c1);
+            }
+            
+            break;
+        case 'C':
+            printf("Enter the row size of the matrix: ");
+            scanf("%d", &r1);
+            printf("\nEnter the column size of the  matrix: ");
+            scanf("%d", &c1);
+            printf("\nEnter the elements of the  matrix:\n");
+            read(f, r1, c1);
+            printf("\nThe elements of the matrix are :\n");
+            display(f, r1, c1);
+
+            printf("Enter the scalar value to be multiplied with the matrix: ");
+            scanf("%d", &sc);
+            scalarm(f, r, sc, r1, c1);
+            printf("\nThe matrix after scalar multiplication:\n");
+            display(r, r1, c1);
+            
+            break;
+        case 'D':
+            printf("Enter the row size of the first matrix: ");
+            scanf("%d", &r1);
+            printf("\nEnter the column size of the first matrix: ");
+            scanf("%d", &c1);
+            printf("\nEnter the elements of the first matrix:\n");
+            read(f, r1, c1);
+            printf("\nThe elements of the first matrix are :\n");
+            display(f, r1, c1);
+            printf("\nEnter the row size of the second matrix: ");
+            scanf("%d", &r2);
+            printf("\nEnter the column size of the second matrix: ");
+            scanf("%d", &c2);
+            printf("\nEnter the elements of the second matrix:\n");
+            read(s, r2, c2);
+            printf("\nThe elements of the second matrix are :\n");
+            display(s, r2, c2);
+            if (c1 != r2)
+            {
+                printf("Matrix multiplication is not possible\n");
+            }
+            else
+            {
+                multi(f, s, r, r1, c2, r2);
+                printf("The matrix after multiplication:\n");
+                display(r, r1, c2);
+            }
+            
+            break;
+        case 'E':
+            printf("Enter the row size of the matrix: ");
+            scanf("%d", &r1);
+            printf("\nEnter the column size of the  matrix: ");
+            scanf("%d", &c1);
+            printf("\nEnter the elements of the  matrix:\n");
+            read(f, r1, c1);
+            printf("\nThe elements of the matrix are :\n");
+            display(f, r1, c1);
+            printf("Transpose of the matrix is:\n");
+            transpose(f, r1, c1);
+            
+
+            break;
+        case 'F':
+            printf("Enter the row size of the matrix: ");
+            scanf("%d", &r1);
+            printf("\nEnter the column size of the  matrix: ");
+            scanf("%d", &c1);
+            printf("\nEnter the elements of the  matrix:\n");
+            read(f, r1, c1);
+            printf("\nThe elements of the matrix are :\n");
+            display(f, r1, c1);
+            if ((c1 != r1))
+            {
+                printf("Determinant only exists for square matrices\n");
+            }
+            else
+            {
+
+                printf("Determinant of the matrix is : %.0f \n", det(f, r1));
+            }
+            
+            break;
+        case 'G':
+            printf("Enter the row size of the matrix: ");
+            scanf("%d", &r1);
+            printf("\nEnter the column size of the  matrix: ");
+            scanf("%d", &c1);
+            printf("\nEnter the elements of the  matrix:\n");
+            read(f, r1, c1);
+            printf("\nThe elements of the matrix are :\n");
+            display(f, r1, c1);
+            if (r1 == c1)
+            {
+                printf("The sum of the principle diagonal elements of  the  matrix:%d\n", dsum(f, r1));
+                printf("The sum of the counter diagonal elements of  the  matrix:%d\n\n", adsum(f, r1));
+            }
+            else
+            {
+                printf("matrix is not a square matrix,sum of diagonals does not exist.\n");
+            }
+            
+            break;
+        case 'H':
+            printf("Enter the row size of the matrix: ");
+            scanf("%d", &r1);
+            printf("\nEnter the column size of the  matrix: ");
+            scanf("%d", &c1);
+            printf("\nEnter the elements of the  matrix:\n");
+            read(f, r1, c1);
+            printf("\nThe elements of the matrix are :\n");
+            display(f, r1, c1);
+            if (r1 == c1)
+            {
+                printf("Trace of the matrix is: %d \n", dsum(f, r1));
+            }
+            else
+                printf("Trace of the matrix cannot be found.\n");
+            
+            break;
+        case 'I':
+            printf("Enter the row size of the matrix: ");
+            scanf("%d", &r1);
+            printf("\nEnter the column size of the  matrix: ");
+            scanf("%d", &c1);
+            printf("\nEnter the elements of the  matrix:\n");
+            read(f, r1, c1);
+            printf("\nThe elements of the matrix are :\n");
+            display(f, r1, c1);
+            rsum(f, r1, c1);
+            csum(f, r1, c1);
+            break;
+        case 'J':
+            printf("Enter the row size of the matrix: ");
+            scanf("%d", &r1);
+            printf("\nEnter the column size of the  matrix: ");
+            scanf("%d", &c1);
+            printf("\nEnter the elements of the  matrix:\n");
+            read(f, r1, c1);
+            printf("\nThe elements of the matrix are :\n");
+            display(f, r1, c1);
+            if (r1 != c1)
+            {
+                printf("Adjoint and inverse dont exist\n");
+            }
+            else
+            {
+                if (det(f, r1) == 0)
+                {
+                    printf("Inverse doesn't exist\n");
+                }
+                else
+                    adjoint(f, r, r1, c1);
+            }
+            
+
+            break;
+        case 'K':
+            printf("Thank you ;)\n");
+            exit(0);
+            
+            break;
+        default:
+            {
+            printf("Invalid input.\n");
+            printf("Please enter the correct input.\n");
+            break;
+            }
+
+        }
+    }while(opt);
+    
+}
 
 void read(int f[][10], int r, int c)
 {
@@ -237,268 +516,4 @@ void adjoint(int f[][10], int r[][10], int n, int m)
         }
         printf("\n");
     }
-}
-int main()
-{
-    printf("________________________________________________________________________________\n");
-    printf("\n\n\t\t\t\tMatrix operations:\t\t\t\n\n");
-    do
-    {
-        printf("________________________________________________________________________________\n");
-
-        printf("A) Addition\n");
-        printf("B) Subtraction\n");
-        printf("C) Scalar multiplication \n");
-        printf("D) Matrix multiplication\n");
-        printf("E) Transpose\n");
-        printf("F) Determinant\n");
-        printf("G) Sum of diagonal elements \n");
-        printf("H) Trace of the matrix\n");
-        printf("I) Row and column sum \n");
-        printf("J)Adjoint and inverse\n");
-        printf("K)Exit\n");
-        printf("________________________________________________________________________________\n");
-        printf("Enter the operation to be performed:\t");
-        fflush(stdin);
-        scanf("%c\n", &opt);
-        fflush(stdin);
-        
-        switch (opt)
-        {
-        case 'A':
-            printf("Enter the row size of the first matrix: ");
-           
-            scanf("%d", &r1);
-            printf("\nEnter the column size of the first matrix: ");
-            
-            scanf("%d", &c1);
-            printf("\nEnter the elements of the first matrix:\n");
-            
-            read(f, r1, c1);
-            printf("\nThe elements of the first matrix are :\n");
-            
-            display(f, r1, c1);
-            printf("\nEnter the row size of the second matrix: ");
-            
-            scanf("%d", &r2);
-            printf("\nEnter the column size of the second matrix: ");
-            
-            scanf("%d", &c2);
-            printf("\nEnter the elements of the second matrix:\n");
-            
-            read(s, r2, c2);
-            printf("\nThe elements of the second matrix are :\n");
-           
-            display(s, r2, c2);
-            
-            if ((c1 != c2) || (r1 != r2))
-            {
-                printf("Addition is not possible\n");
-            }
-            else
-            {
-                add(f, s, r, r1, c1);
-                printf("\nThe sum of the two matrices:\n");
-                display(r, r1, c1);
-            }
-            break;
-        case 'B':
-            printf("Enter the row size of the first matrix: ");
-            
-            scanf("%d", &r1);
-            printf("\nEnter the column size of the first matrix: ");
-            
-            scanf("%d", &c1);
-            printf("\nEnter the elements of the first matrix:\n");
-            read(f, r1, c1);
-            printf("\nThe elements of the first matrix are :\n");
-            display(f, r1, c1);
-            printf("\nEnter the row size of the second matrix: ");
-            scanf("%d", &r2);
-            printf("\nEnter the column size of the second matrix: ");
-            scanf("%d", &c2);
-            printf("\nEnter the elements of the second matrix:\n");
-            read(s, r2, c2);
-            printf("\nThe elements of the second matrix are :\n");
-            display(s, r2, c2);
-            if ((c1 != c2) || (r1 != r2))
-            {
-                printf("Subtraction is not possible\n");
-            }
-            else
-            {
-                subtract(f, s, r, r1, c1);
-                printf("\nThe difference of the two matrices:\n");
-                display(r, r1, c1);
-            }
-            
-            break;
-        case 'C':
-            printf("Enter the row size of the matrix: ");
-            scanf("%d", &r1);
-            printf("\nEnter the column size of the  matrix: ");
-            scanf("%d", &c1);
-            printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
-            printf("\nThe elements of the matrix are :\n");
-            display(f, r1, c1);
-
-            printf("Enter the scalar value to be multiplied with the matrix: ");
-            scanf("%d", &sc);
-            scalarm(f, r, sc, r1, c1);
-            printf("\nThe matrix after scalar multiplication:\n");
-            display(r, r1, c1);
-            
-            break;
-        case 'D':
-            printf("Enter the row size of the first matrix: ");
-            scanf("%d", &r1);
-            printf("\nEnter the column size of the first matrix: ");
-            scanf("%d", &c1);
-            printf("\nEnter the elements of the first matrix:\n");
-            read(f, r1, c1);
-            printf("\nThe elements of the first matrix are :\n");
-            display(f, r1, c1);
-            printf("\nEnter the row size of the second matrix: ");
-            scanf("%d", &r2);
-            printf("\nEnter the column size of the second matrix: ");
-            scanf("%d", &c2);
-            printf("\nEnter the elements of the second matrix:\n");
-            read(s, r2, c2);
-            printf("\nThe elements of the second matrix are :\n");
-            display(s, r2, c2);
-            if (c1 != r2)
-            {
-                printf("Matrix multiplication is not possible\n");
-            }
-            else
-            {
-                multi(f, s, r, r1, c2, r2);
-                printf("The matrix after multiplication:\n");
-                display(r, r1, c2);
-            }
-            
-            break;
-        case 'E':
-            printf("Enter the row size of the matrix: ");
-            scanf("%d", &r1);
-            printf("\nEnter the column size of the  matrix: ");
-            scanf("%d", &c1);
-            printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
-            printf("\nThe elements of the matrix are :\n");
-            display(f, r1, c1);
-            printf("Transpose of the matrix is:\n");
-            transpose(f, r1, c1);
-            
-
-            break;
-        case 'F':
-            printf("Enter the row size of the matrix: ");
-            scanf("%d", &r1);
-            printf("\nEnter the column size of the  matrix: ");
-            scanf("%d", &c1);
-            printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
-            printf("\nThe elements of the matrix are :\n");
-            display(f, r1, c1);
-            if ((c1 != r1))
-            {
-                printf("Determinant only exists for square matrices\n");
-            }
-            else
-            {
-
-                printf("Determinant of the matrix is : %.0f \n", det(f, r1));
-            }
-            
-            break;
-        case 'G':
-            printf("Enter the row size of the matrix: ");
-            scanf("%d", &r1);
-            printf("\nEnter the column size of the  matrix: ");
-            scanf("%d", &c1);
-            printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
-            printf("\nThe elements of the matrix are :\n");
-            display(f, r1, c1);
-            if (r1 == c1)
-            {
-                printf("The sum of the principle diagonal elements of  the  matrix:%d\n", dsum(f, r1));
-                printf("The sum of the counter diagonal elements of  the  matrix:%d\n\n", adsum(f, r1));
-            }
-            else
-            {
-                printf("matrix is not a square matrix,sum of diagonals does not exist.\n");
-            }
-            
-            break;
-        case 'H':
-            printf("Enter the row size of the matrix: ");
-            scanf("%d", &r1);
-            printf("\nEnter the column size of the  matrix: ");
-            scanf("%d", &c1);
-            printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
-            printf("\nThe elements of the matrix are :\n");
-            display(f, r1, c1);
-            if (r1 == c1)
-            {
-                printf("Trace of the matrix is: %d \n", dsum(f, r1));
-            }
-            else
-                printf("Trace of the matrix cannot be found.\n");
-            
-            break;
-        case 'I':
-            printf("Enter the row size of the matrix: ");
-            scanf("%d", &r1);
-            printf("\nEnter the column size of the  matrix: ");
-            scanf("%d", &c1);
-            printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
-            printf("\nThe elements of the matrix are :\n");
-            display(f, r1, c1);
-            rsum(f, r1, c1);
-            csum(f, r1, c1);
-            break;
-        case 'J':
-            printf("Enter the row size of the matrix: ");
-            scanf("%d", &r1);
-            printf("\nEnter the column size of the  matrix: ");
-            scanf("%d", &c1);
-            printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
-            printf("\nThe elements of the matrix are :\n");
-            display(f, r1, c1);
-            if (r1 != c1)
-            {
-                printf("Adjoint and inverse dont exist\n");
-            }
-            else
-            {
-                if (det(f, r1) == 0)
-                {
-                    printf("Inverse doesn't exist\n");
-                }
-                else
-                    adjoint(f, r, r1, c1);
-            }
-            
-
-            break;
-        case 'K':
-            printf("Thank you ;)\n");
-            //exit(0);
-            
-            break;
-        default:
-            {
-            printf("Invalid input.\n");
-            printf("Please enter the correct input.\n");
-            break;
-            }
-
-        }
-    }while(opt!='K');
 }

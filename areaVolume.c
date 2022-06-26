@@ -380,7 +380,4 @@ void areaVolMain()
 }
 
 
-int main(){
-    areaVolMain();
-    return 0;
-}
+
