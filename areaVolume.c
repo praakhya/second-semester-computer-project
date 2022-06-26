@@ -10,6 +10,7 @@ void A_Circle(char c1)
     printf("\n Enter the radius of the circle: \n");
     fflush(stdin);
     scanf("%d", &r);
+    fflush(stdin);
     if (c1=='1')
     {
         printf("\n The area of the circle is: %.3f\t", ((22 / 7) * pow(r,2)));
@@ -25,6 +26,7 @@ void A_Rect(char r1)
     printf("\n Enter the length and breadth of the rectangle: \n");
     fflush(stdin);
     scanf("%d%d", &l, &b);
+    fflush(stdin);
     if (r1 == '1')
     {
         printf("\n The area of the rectangle is: %.3d\t", (l * b));
@@ -40,6 +42,7 @@ void A_Sq(char sq1)
     printf("\n Enter the side of the square: \n");
     fflush(stdin);
     scanf("%d", &side);
+    fflush(stdin);
     if (sq1 == '1')
     {
         printf("\n The area of the square is:%.3f \t", (pow(side, 2)));
@@ -55,6 +58,7 @@ void A_Rhom(char rh1)
     printf("\n Enter the values of the sides and the diagonals of the rhombus: \n");
     fflush(stdin);
     scanf("%d%d%d%d", &side1, &side2, &diag1, &diag2);
+    fflush(stdin);
     if (rh1 == '1')
     {
         printf("\n The area of the rhombus is:%.3f \t", (0.5 * diag1 * diag2));
@@ -70,6 +74,7 @@ void A_Prll(char prl1)
     printf("\n Enter the values of the sides, base and height of the parallelogram: \n");
     fflush(stdin);
     scanf("%d%d%d%d", &pside1, &pside2, &pbase, &pheight);
+    fflush(stdin);
     if (prl1 == '1')
     {
         printf("\n The area of the parallelogram  is:%.3d\t", (pbase * pheight));
@@ -85,6 +90,7 @@ void A_Tri(char tri1)
     printf("\n Enter the values sides of the triangle: \n");
     fflush(stdin);
     scanf("%d%d%d", &ta, &tb, &tc);
+    fflush(stdin);
     if (tri1 == '1')
     {
         sp = (ta + tb + tc) / 2;
@@ -101,6 +107,7 @@ void A_trpzoid(char trp1)
     printf("\n Enter the values of parallel  sides and height of the trapezoid: \n");
     fflush(stdin);
     scanf("%d%d%d", &trs1, &trs2, &trh);
+    fflush(stdin);
     if (trp1 == '1')
     {
         printf("\n The area of the trapezoid is:%.3f \t", (0.5 * (trs1 + trs2) * trh));
@@ -119,6 +126,7 @@ void A_SemiCrcl(char sc1)
     printf("\n Enter the radius of the semi-circle: \n");
     fflush(stdin);
     scanf("%d", &scr);
+    fflush(stdin);
     if (sc1 == '1')
     {
         printf("\n The area of the semi-circle is:%.3f \t", (0.5 * (22 / 7) * pow(scr, 2)));
@@ -134,6 +142,7 @@ void V_Cboid(char cuboid)
     printf("\n Enter the length, breadth and height of the cuboid: \n");
     fflush(stdin);
     scanf("%d%d%d", &cl, &cb, &ch);
+    fflush(stdin);
     if (cuboid == '2')
     {
         printf("\n The volume of the cuboid is:%.3d \t", (cl * cb * ch));
@@ -149,6 +158,7 @@ void V_Cube(char cube)
     printf("\nEnter the value of side of cube: \n");
     fflush(stdin);
     scanf("%d", &csa);
+    fflush(stdin);
     if (cube != '2')
     {
         printf("\n The volume of the cube is:%.3f \t", (pow(csa, 3)));
@@ -165,6 +175,7 @@ void V_Cyln(char cyl1)
     printf("\n Enter the radius and height of the cylinder: \n");
     fflush(stdin);
     scanf("%d%d", &cyr, &cyh);
+    fflush(stdin);
     if (cyl1 == '2')
     {
         printf("\n The volume of the cylinder is:%.3d \t", ((22 / 7) * cyr * cyh));
@@ -180,6 +191,7 @@ void V_Cone(char cone1)
     printf("\n Enter the length and height of the cone: \n");
     fflush(stdin);
     scanf("%d%d", &col, &coh);
+    fflush(stdin);
     col = sqrt((pow(cor, 2) + pow(coh, 2)));
     if (cone1 == '2')
     {
@@ -196,6 +208,7 @@ void V_Sphere(char sph1)
     printf("\n Enter the radius of the sphere: \n");
     fflush(stdin);
     scanf("%d", &spr);
+    fflush(stdin);
     if (sph1 == '2')
     {
         printf("\n The volume of the sphere is:%.3f \t", ((4 / 3) * (22 / 7) * pow(spr, 3)));
@@ -211,6 +224,7 @@ void V_HSphere(char HS1)
     printf("\n Enter the radius of the hemisphere: \n");
     fflush(stdin);
     scanf("%d", &hsr);
+    fflush(stdin);
     if (HS1 == '2')
     {
         printf("\n The volume of the hemisphere  is:%.3f \t", ((2 / 3) * (22 / 7) * pow(hsr, 3)));
@@ -226,6 +240,7 @@ void V_Frustrum(char Frstm1)
     printf("\n Enter the upper radius, lower radius, slant height, altitude/height, base area1, base area2: \n");
     fflush(stdin);
     scanf("%d%d%d%d%d%d", &fur, &flr, &fsl, &fh, &fb1, &fb2);
+    fflush(stdin);
     if (Frstm1 == '2')
     {
         printf("\n The volume of the frustum is:%.3f \t", ((1 / 3) * fh * (fb1 + fb2 + (sqrt(fb1 * fb2)))));
@@ -249,12 +264,14 @@ void areaVolMain()
         printf("1. Area\n2.Volume\n3.Perimeter\n4.Surface Area\nQ:Quit.\n________________________\n");
         fflush(stdin);
         scanf("%c", &ch);
+        fflush(stdin);
         if ((ch == '1') || (ch == '3'))
         {
             printf("************\nSelect the surface:\n************");
             printf("\na.Circle\nb.Rectangle\nc.Square\nd.Rhombus\ne.Parallelogram\nf.Triangle\ng.Trapezoid\nh:Semi Circle\n");
             fflush(stdin);
-            scanf("%c", &ch1);
+            scanf("%c\n", &ch1);
+            fflush(stdin);
             switch (ch1)
             {
             case 'a':
@@ -307,6 +324,7 @@ void areaVolMain()
             printf("A.Cuboid\nB.Cube\nC.Cylinder\nD.Cone\nE.Sphere\nF.Hemisphere\nG:Frustum\n");
             fflush(stdin);
             scanf("%c", &ch1);
+            fflush(stdin);
             switch (ch1)
             {
             case 'A':
@@ -361,9 +379,8 @@ void areaVolMain()
     } while (tolower(ch)!='q');
 }
 
-/*
+
 int main(){
     areaVolMain();
     return 0;
 }
-*/

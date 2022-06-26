@@ -12,6 +12,7 @@ int main(){
         fflush(stdin);
         printf("------*------*------*------*------*------\n>>> ");
         scanf("%c",&ch);
+        fflush(stdin);
         if (ch=='1'){
             matMain();
         }
