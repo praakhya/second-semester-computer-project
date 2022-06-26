@@ -1,16 +1,17 @@
 int alphaToNum(char a);
 char numToAlpha(int a);
-long convertToNum(char* num);
-long toDec(char* num, int b);
-long toBin(char* num, int b);
+//long convertToNum(char* num);
+long long toDec(char* num, int b);
+long long toBin(char* num, int b);
 void reverse(char* num);
 int getLen(long num);
 char* toHex(char* num, int b);
-long toOct(char* num, int b);
+long long toOct(char* num, int b);
 void prettyPrint_ops(char* num1, char* type1, char* num2, char* type2);
 void prettyPrint_opi(char* num1, char* type1, int num2, char* type2);
+int validNumByBase(char* num, int base);
 
-void read(int f[][10], int r0, int c0);
+void readVals(int f[][10], int r0, int c0);
 void display(int f[][10], int r2, int c2);
 void add(int f[][10], int s[][10], int r[][10], int x, int y);
 void subtract(int f[][10], int s[][10], int r[][10], int x, int y);
@@ -41,7 +42,7 @@ void V_Cone(char cone1);
 void V_Sphere(char sph1);
 void V_HSphere(char HS1);
 void V_Frustrum(char Frstm1);
-void quit();
+int quit();
 void areaVolMain();
 void convertMain();
 

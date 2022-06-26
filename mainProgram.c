@@ -2,10 +2,14 @@
 #include <stdlib.h>
 #include "functionHeaders.h"
 #include <ctype.h>
+#include <unistd.h>
 
 int main(){
     char ch;
+    
     do{
+        sleep(2);
+        system("clear");
         printf("------*------*------*------*------*------\n");
         printf("Choose an Option:- \n");
         printf("1. Perform Matrix Calculations\n2. Calculate Area, Volume, Perimeter...\n3. Convert number\n4. Trignometric Operations\n5. Scientific Calculator\nQ For Quit\n");

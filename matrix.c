@@ -1,28 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include<ctype.h>
+#include "functionHeaders.h"
 int f[10][10], s[10][10], r[10][10];
 int c1, c2, r1, r2;
 char opt;
 int sc;
 
-void read(int f[][10], int r0, int c0);
-
-void display(int f[][10], int r2, int c2);
-void add(int f[][10], int s[][10], int r[][10], int x, int y);
-void subtract(int f[][10], int s[][10], int r[][10], int x, int y);
-void scalarm(int f[][10], int r[][10], int scalar, int x, int y);
-void multi(int f[][10], int s[][10], int r[][10], int r1, int c2, int r2);
-void transpose(int f[][10], int x, int y);
-float det(int f[][10], int n);
-void cofac(int f[][10], int t[][10], int z, int i, int n);
-int dsum(int f[][10], int n);
-int adsum(int f[][10], int n);
-void rsum(int f[][10], int n, int m);
-void csum(int f[][10], int n, int m);
-void adjoint(int f[][10], int r[][10], int n, int m);
 void matMain()
 {   
+    int running=1;
     printf("________________________________________________________________________________\n");
     printf("\n\n\t\t\t\tMatrix operations:\t\t\t\n\n");
     do
@@ -56,7 +43,7 @@ void matMain()
             scanf("%d", &c1);
             printf("\nEnter the elements of the first matrix:\n");
             
-            read(f, r1, c1);
+            readVals(f, r1, c1);
             printf("\nThe elements of the first matrix are :\n");
             
             display(f, r1, c1);
@@ -68,7 +55,7 @@ void matMain()
             scanf("%d", &c2);
             printf("\nEnter the elements of the second matrix:\n");
             
-            read(s, r2, c2);
+            readVals(s, r2, c2);
             printf("\nThe elements of the second matrix are :\n");
            
             display(s, r2, c2);
@@ -92,7 +79,7 @@ void matMain()
             
             scanf("%d", &c1);
             printf("\nEnter the elements of the first matrix:\n");
-            read(f, r1, c1);
+            readVals(f, r1, c1);
             printf("\nThe elements of the first matrix are :\n");
             display(f, r1, c1);
             printf("\nEnter the row size of the second matrix: ");
@@ -100,7 +87,7 @@ void matMain()
             printf("\nEnter the column size of the second matrix: ");
             scanf("%d", &c2);
             printf("\nEnter the elements of the second matrix:\n");
-            read(s, r2, c2);
+            readVals(s, r2, c2);
             printf("\nThe elements of the second matrix are :\n");
             display(s, r2, c2);
             if ((c1 != c2) || (r1 != r2))
@@ -121,7 +108,7 @@ void matMain()
             printf("\nEnter the column size of the  matrix: ");
             scanf("%d", &c1);
             printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
+            readVals(f, r1, c1);
             printf("\nThe elements of the matrix are :\n");
             display(f, r1, c1);
 
@@ -138,7 +125,7 @@ void matMain()
             printf("\nEnter the column size of the first matrix: ");
             scanf("%d", &c1);
             printf("\nEnter the elements of the first matrix:\n");
-            read(f, r1, c1);
+            readVals(f, r1, c1);
             printf("\nThe elements of the first matrix are :\n");
             display(f, r1, c1);
             printf("\nEnter the row size of the second matrix: ");
@@ -146,7 +133,7 @@ void matMain()
             printf("\nEnter the column size of the second matrix: ");
             scanf("%d", &c2);
             printf("\nEnter the elements of the second matrix:\n");
-            read(s, r2, c2);
+            readVals(s, r2, c2);
             printf("\nThe elements of the second matrix are :\n");
             display(s, r2, c2);
             if (c1 != r2)
@@ -167,7 +154,7 @@ void matMain()
             printf("\nEnter the column size of the  matrix: ");
             scanf("%d", &c1);
             printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
+            readVals(f, r1, c1);
             printf("\nThe elements of the matrix are :\n");
             display(f, r1, c1);
             printf("Transpose of the matrix is:\n");
@@ -181,7 +168,7 @@ void matMain()
             printf("\nEnter the column size of the  matrix: ");
             scanf("%d", &c1);
             printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
+            readVals(f, r1, c1);
             printf("\nThe elements of the matrix are :\n");
             display(f, r1, c1);
             if ((c1 != r1))
@@ -201,7 +188,7 @@ void matMain()
             printf("\nEnter the column size of the  matrix: ");
             scanf("%d", &c1);
             printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
+            readVals(f, r1, c1);
             printf("\nThe elements of the matrix are :\n");
             display(f, r1, c1);
             if (r1 == c1)
@@ -221,7 +208,7 @@ void matMain()
             printf("\nEnter the column size of the  matrix: ");
             scanf("%d", &c1);
             printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
+            readVals(f, r1, c1);
             printf("\nThe elements of the matrix are :\n");
             display(f, r1, c1);
             if (r1 == c1)
@@ -238,7 +225,7 @@ void matMain()
             printf("\nEnter the column size of the  matrix: ");
             scanf("%d", &c1);
             printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
+            readVals(f, r1, c1);
             printf("\nThe elements of the matrix are :\n");
             display(f, r1, c1);
             rsum(f, r1, c1);
@@ -250,7 +237,7 @@ void matMain()
             printf("\nEnter the column size of the  matrix: ");
             scanf("%d", &c1);
             printf("\nEnter the elements of the  matrix:\n");
-            read(f, r1, c1);
+            readVals(f, r1, c1);
             printf("\nThe elements of the matrix are :\n");
             display(f, r1, c1);
             if (r1 != c1)
@@ -271,8 +258,7 @@ void matMain()
             break;
         case 'K':
             printf("Thank you ;)\n");
-            exit(0);
-            
+            running=0;
             break;
         default:
             {
@@ -282,11 +268,11 @@ void matMain()
             }
 
         }
-    }while(opt);
+    }while(running);
     
 }
 
-void read(int f[][10], int r, int c)
+void readVals(int f[][10], int r, int c)
 {
     int i, j;
     if (r == 0 || c == 0)

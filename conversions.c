@@ -2,7 +2,20 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
+#include "functionHeaders.h"
 
+int validNumByBase(char* num, int base)
+{
+    for (int i=0; i<strlen(num); ++i)
+    {
+        if (alphaToNum(num[i])>=base)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
 int alphaToNum(char a){
     int digA=10, res;
     if ((a>='A')&&(a<='Z')){
@@ -16,7 +29,7 @@ int alphaToNum(char a){
 char numToAlpha(int a){
     int digA=10;
     char res;
-    if (a>10){
+    if (a>=10){
         res=a-digA+'A'; //converting a given letter to its hexadecimal value
     }
     else{
@@ -24,7 +37,8 @@ char numToAlpha(int a){
     }
     return res;
 }
-long convertToNum(char* num){
+/*
+long long convertToNum(char* num){
     long n=0;
     int len=strlen(num);
     for (int i=0; i<len; ++i){
@@ -32,8 +46,9 @@ long convertToNum(char* num){
     }
     return n;
 }
+*/
 
-long toDec(char* num, int b){
+long long toDec(char* num, int b){
     long dn=0; //the resultant decimal number
     int n=0, len=strlen(num); 
     while (n<len){
@@ -50,15 +65,15 @@ long toDec(char* num, int b){
     return dn;
 }
 
-long toBin(char* num, int b){ 
-    long dn=toDec(num,b), res=dn, bn=0;
+long long toBin(char* num, int b){ 
+    
+    long long dn=toDec(num,b), res=dn, bn=0;
     int rem,i=0,lastChk=0;
     while ((res>0)){
         rem=res%2;
         res=res/2;
         bn+=rem*pow(10,i);
         ++i;
-        
     }
     return bn;
 }
@@ -80,22 +95,26 @@ int getLen(long num){
     return len;
 
 }
+
 char* toHex(char* num, int b){
-    long res=toDec(num, b);
-    int rem,len=getLen(res);
-    char * hn= (char*) calloc(len, sizeof(char));
-    int i;
-    for (i=0; i<len; ++i){   
-            rem=res%16;
+    long long res=toDec(num, b);
+    char sres[32];
+    sprintf(sres,"%lld",res);
+    int rem,len=strlen(sres);
+    char* hn= (char*) calloc(len, sizeof(char));
+    int i = 0;
+    while(res>0) {
+        rem=res%16;
         res=(res/16);
         hn[i]=numToAlpha(rem);
+        hn[i+1] = 0;
+        ++i;
     }
     reverse(hn);
-    hn[len]='\0';
     return hn;
 }
-long toOct(char* num, int b){ 
-    long dn=toDec(num,b), res=dn, bn=0;
+long long toOct(char* num, int b){ 
+    long long dn=toDec(num,b), res=dn, bn=0;
     int rem,i=0,lastChk=0;
     while ((res>0)){
         rem=res%8;
@@ -110,13 +129,13 @@ void prettyPrint_ops(char* num1, char* type1, char* num2, char* type2){
     printf("%s (%s) --> %s (%s)\n",num1, type1, num2, type2);
 }
 void prettyPrint_opi(char* num1, char* type1, int num2, char* type2){
-    printf("%s (%s) --> %d (%s)\n",num1, type1, num2, type2);
+    printf("%s (%s) --> %lld (%s)\n",num1, type1, num2, type2);
 }
-typedef struct type{
+struct type{
     char name[20];
     int base;
-} typeStruct;
-void printOpt(typeStruct types[4]){
+}typedef type;
+void printOpt(type types[4]){
     int len=4;
     for (int i=0; i<len; ++i){
         printf("%d. %s\n",i+1,types[i].name);
@@ -135,47 +154,85 @@ int valid(int opt){
     }
     return 1;
 }
-int inpInitType(int* opt, typeStruct* types){
-    printf("Select an option for initial type: ");
-    scanf("%d",opt);
-    if (valid(*opt)){
-        return types[*opt-1].base;
+int baseOfChosen(type* types)
+{
+    int opt;
+    scanf("%d",&opt);
+    while(!valid(opt))
+    {
+        printf("Invalid option. Try again\n");
+        scanf("%d",&opt);
     }
-    return inpInitType(opt, types);
+    return types[opt-1].base;
 }
-int inpFinType(int* opt, typeStruct* types){
-    printf("\nSelect an option for final type: ");
-    scanf("%d",opt);
-    if (valid(*opt)){
-        return types[*opt-1].base;
+char* getTypeName(int b,type* types)
+{
+    for (int i=0; i<4; ++i)
+    {
+        if (types[i].base==b)
+        {
+            return types[i].name;
+        }
     }
-    return inpFinType(opt, types);
+    return NULL;
 }
-void convertMain(){
-    long (*dec_ptr)(char* num, int b) = &toDec;
-    long (*bin_ptr)(char* num, int b) = &toBin;
-    char* (*hex_ptr)(char* num, int b) = &toHex;
-    long (*oct_ptr)(char* num, int b) = &toOct;
-    typeStruct types[4]={{"Decimal",10},{"Binary",2},{"Hexadecimal",16},{"Octal",8}};
-    char ch;
-    int initOpt, finOpt, initType, finType;
-    char val[100];
+void convertMain()
+{
+    type types[4]={{"Decimal",10},{"Hexadecimal",16},{"Binary",2},{"Octal",8}};
+    char value[256];
     printHead();
-    do{
-        printf("Available Types:-\n");
-        printOpt(types);   
-        initType = inpInitType(&initOpt, types);
-        printf("\nEnter value to be converted: ");
-        scanf("%s",val);
-        finType = inpFinType(&finOpt, types);
+    char ch='y';
+    int initBase;
+    int finBase;
+    while(tolower(ch)=='y')
+    {   
+        printf("\nAvailable Bases:-\n");
+        printOpt(types);
+        printf("Initial Base: ");
+        initBase = baseOfChosen(types);
         printf("\n");
-    }while(0);
-    char* n="456";
-    int b=10;
-    char* hn=toHex(n,b);
-    prettyPrint_ops(n,"decimal",hn,"hexadecimal");
-    long on=toOct(n,b);
-    prettyPrint_opi(n,"decimal",on,"octal");
-    long bn=toBin(n,b);
-    prettyPrint_opi(n,"decimal",bn,"binary");
+        printf("Enter value to be converted: ");
+        scanf("%s",value);
+        printf("\n");
+        if (!validNumByBase(value,initBase))
+        {
+            printf("Incorrect number as per base! Try again\n");
+            continue;
+        }
+        printf("Final Base: ");
+        finBase = baseOfChosen(types);
+        printf("\n");
+        switch (finBase)
+        {
+            case 2:
+                prettyPrint_opi(value, getTypeName(initBase,types), toBin(value,initBase),getTypeName(finBase,types));
+                break;
+            case 8:
+                prettyPrint_opi(value, getTypeName(initBase,types), toOct(value,initBase),getTypeName(finBase,types));
+                break;
+            case 10:
+                prettyPrint_opi(value, getTypeName(initBase,types), toDec(value,initBase),getTypeName(finBase,types));
+                break;
+            case 16:
+            {
+                char* hn=toHex(value,initBase);
+                prettyPrint_ops(value, getTypeName(initBase,types), hn,getTypeName(finBase,types));
+                free(hn);
+                break;
+            }
+        }
+        fflush(stdin);
+        printf("Continue conversions?: ");
+        scanf("%c",&ch);
+        
+    }
+/*
+void prettyPrint_ops(char* num1, char* type1, char* num2, char* type2){
+    printf("%s (%s) --> %s (%s)\n",num1, type1, num2, type2);
+}
+void prettyPrint_opi(char* num1, char* type1, int num2, char* type2){
+    printf("%s (%s) --> %d (%s)\n",num1, type1, num2, type2);
+}
+*/
+
 }
